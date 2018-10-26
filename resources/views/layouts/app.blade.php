@@ -10,12 +10,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
     <div id="app">
@@ -33,6 +34,7 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
                             <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
+                            <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
                         @endif
                     </ul>
                     <!-- Right Side Of Navbar -->

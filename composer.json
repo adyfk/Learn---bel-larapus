@@ -10,7 +10,8 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
-        "santigarcor/laratrust": "^5.0"
+        "santigarcor/laratrust": "^5.0",
+        "yajra/laravel-datatables-oracle": "^8.9"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
