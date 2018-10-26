@@ -18,7 +18,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-        {!! csrf_token() !!}
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -32,17 +31,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @if (Auth::check())
+                            <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
+                        @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                    <li class="nav-item {{ Route::currentRouteName()=='login'? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName()=='register'? 'active':'' }}">
                                 @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
                                 @endif
                             </li>
                         @else
@@ -72,6 +74,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        @yield('scripts')
     </div>
 </body>
 </html>

@@ -11,10 +11,10 @@
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
+                            Ini Success
                         </div>
                     @endif
-
-                    You are logged in!
+                    Anda Berhasil Login
                 </div>
             </div>
         </div>
