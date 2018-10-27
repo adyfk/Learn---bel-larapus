@@ -14,7 +14,6 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 </head>
@@ -34,8 +33,10 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
                             <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
-                            <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
                         @endif
+                        @role('admin')
+                            <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
+                        @endrole
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

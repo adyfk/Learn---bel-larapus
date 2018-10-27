@@ -12,6 +12,7 @@
             <div class="card">
                 <div class="card-header">Penulis</div>
                 <div class="card-body">
+                    <p> <a class="btn btn-primary" href="{{ route('penulis.create') }}">Tambah</a> </p>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

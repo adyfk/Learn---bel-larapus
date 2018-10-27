@@ -28,7 +28,7 @@ class AuthorsController extends Controller
      */
     public function create()
     {
-        //
+            return view('authors.add');
     }
 
     /**
@@ -39,7 +39,11 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            ['name' => 'required|unique:authors']
+        );
+        Author::create($request->all());
+        return redirect()->route('penulis.index')->with('status','Product created successfully.');
     }
 
     /**
