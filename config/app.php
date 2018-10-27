@@ -137,8 +137,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Yajra\Datatables\DatatablesServiceProvider::class,
-
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,

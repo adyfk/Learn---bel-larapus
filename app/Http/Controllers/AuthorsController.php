@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Author;
-use Yajra\Datatables\Datatables;
+use DataTables;
+use Yajra\DataTables\Html\Builder;
 class AuthorsController extends Controller
 {
     /**
@@ -12,14 +13,22 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Builder $builder)
     {
-        return view('authors.index');
-    }
-    public function get_data()
-    {
-        $authors = Author::all(['id', 'name']);
-        return Datatables::of($authors)->make(true);
+        if (request()->ajax()) {
+            return DataTables::of(Author::all('id','name'))
+            ->addColumn('action', function($author){
+                return view('authors._action', [
+                    'edit_url' => route('penulis.edit', $author->id),
+                ]);
+            })->toJson();
+        }
+        $html = $builder->columns([
+                ['data' => 'id', 'name' => 'id', 'title' => 'Id'],
+                ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
+                ['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false,'\searchable'=>false]
+            ]);
+        return view('authors.index', compact('html'));
     }
     /**
      * Show the form for creating a new resource.
@@ -65,7 +74,6 @@ class AuthorsController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**

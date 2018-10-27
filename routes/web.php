@@ -21,7 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resource('penulis', 'AuthorsController');
-        Route::get('/data_author','AuthorsController@get_data')->name('getdataauthor');
     });
 });
 

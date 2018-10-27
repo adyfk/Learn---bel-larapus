@@ -18,32 +18,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <table id='table-author' class='table table-striped table-bordered'>
-                        <thead>
-                            <tr>
-                                <td>Id</td>
-                                <td>Nama</td>
-                            </tr>
-                        </thead>
-                    </table>
+                    {!! $html->table() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-@section('scripts')
-<script>
-   $(document).ready(function(){
-        $('#table-author').DataTable({
-            proccesing:true,
-            serverSide:true,
-            ajax:'{!! route('getdataauthor') !!}',
-            columns : [
-                {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'}
-            ]
-        });
-    })
-</script>
-@endsection
+@push('scripts')
+    {!! $html->scripts() !!}
+@endpush
