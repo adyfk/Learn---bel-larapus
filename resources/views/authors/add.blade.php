@@ -13,11 +13,6 @@
             <div class="card">
                 <div class="card-header">Penulis</div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <form class="ml-5" method="POST" action='{{ route('penulis.store') }}'>
                         @csrf
                         @include('authors._form')

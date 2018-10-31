@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Author;
 use DataTables;
 use Yajra\DataTables\Html\Builder;
+use Session;
 class AuthorsController extends Controller
 {
     /**
@@ -19,7 +20,10 @@ class AuthorsController extends Controller
             return DataTables::of(Author::all('id','name'))
             ->addColumn('action', function($author){
                 return view('authors._action', [
+                    'model' => $author,
                     'edit_url' => route('penulis.edit', $author->id),
+                    'form_url' => route('penulis.destroy', $author->id),
+                    'confirm_message' => 'Yakin mau menghapus ' . $author->name . '?',
                 ]);
             })->toJson();
         }
@@ -51,8 +55,12 @@ class AuthorsController extends Controller
         $request->validate(
             ['name' => 'required|unique:authors']
         );
-        Author::create($request->all());
-        return redirect()->route('penulis.index')->with('status','Product created successfully.');
+        $author = Author::create($request->all());
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $author->name"
+            ]);           
+        return redirect()->route('penulis.index');
     }
 
     /**
@@ -74,6 +82,8 @@ class AuthorsController extends Controller
      */
     public function edit($id)
     {
+        $author = Author::find($id);
+        return view('authors.edit')->with(compact('author'));
     }
 
     /**
@@ -85,7 +95,14 @@ class AuthorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, ['name' => 'required|unique:authors,name,'. $id]);
+        $author = Author::find($id);
+        $author->update($request->only('name'));
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $author->name"
+        ]);
+        return redirect()->route('penulis.index');
     }
 
     /**
@@ -96,6 +113,12 @@ class AuthorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Author::destroy($id)) return redirect()->back();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Penulis berhasil dihapus"
+        ]);            
+        return redirect()->route('penulis.index');
+        
     }
 }
