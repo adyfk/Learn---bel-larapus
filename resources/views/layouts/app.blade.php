@@ -37,6 +37,7 @@
                         @endif
                         @role('admin')
                             <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
+                            <li><a class="nav-link" href="{{ route('buku.index') }}">Buku</a></li>
                         @endrole
                     </ul>
                     <!-- Right Side Of Navbar -->
