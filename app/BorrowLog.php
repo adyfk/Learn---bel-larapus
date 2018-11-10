@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class BorrowLog extends Model
 {
     protected $fillable = ['book_id', 'user_id', 'is_returned'];
+    protected $casts = [
+        'is_returned' => 'boolean',
+        ];        
     public function book()
     {
         return $this->belongsTo('App\Book');
@@ -15,5 +18,18 @@ class BorrowLog extends Model
     {
         return $this->belongsTo('App\User');
     }
+    //n Query Scope pada Eloquent
+    public function scopeReturned($query)
+    {
+        return $query->where('is_returned', 1);
+    }
+    public function scopeBorrowed($query)
+    {
+        return $query->where('is_returned', 0);
+    }
+    //Dapat dipanggil di thingker
+    //App\BorrowLog::returned()->get();
+    //---------------------------------
+    
 }
 

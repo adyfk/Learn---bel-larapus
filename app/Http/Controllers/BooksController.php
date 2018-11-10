@@ -13,7 +13,9 @@ use File;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\BorrowLog;
-use Illuminate\Support\Facades\Auth;
+use Auth;
+
+use App\Exceptions\BookException;
 class BooksController extends Controller
 {
     /**
@@ -185,14 +187,16 @@ class BooksController extends Controller
     {
         try {
             $book = Book::findOrFail($id);
-            BorrowLog::create([
-                'user_id' => Auth::user()->id,
-                'book_id' => $id
-            ]);
-            Session::flash("flash_notification",[
+            Auth::user()->borrow($book);
+            Session::flash("flash_notification", [
                 "level"=>"success",
                 "message"=>"Berhasil meminjam $book->title"
             ]);
+        }catch(BookException $e) {
+            Session::flash("flash_notification", [
+            "level" => "danger",
+            "message" => $e->getMessage()
+        ]);
         }catch (ModelNotFoundException $e) {
             Session::flash("flash_notification", [
                 "level"=>"danger",
