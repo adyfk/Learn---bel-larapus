@@ -15,7 +15,6 @@ class StoreBookRequest extends FormRequest
     {
         return Auth::check();   //Untuk Menentukan Akses User
     }
-
     /**
      * Get the validation rules that apply to the request.
      *

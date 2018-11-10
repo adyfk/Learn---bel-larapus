@@ -6,7 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
-
+use App\Book;
+use App\BorrowLog;
+use App\Exceptions\BookException;
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
@@ -29,5 +31,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function borrow(Book $book)
+    {
+        // cek apakah buku ini sedang dipinjam oleh user
+        if($this->borrowLogs()->where('book_id',$book->id)->where('is_returned', 0)->count() > 0 ) {
+            throw new BookException("Buku $book->title sedang Anda pinjam.");
+        }
+        $borrowLog = BorrowLog::create(['user_id'=>$this->id, 'book_id'=>$book->id]);
+        return $borrowLog;
+    }
+    public function borrowLogs()
+    {
+        return $this->hasMany('App\BorrowLog');
+    }
+
     
 }

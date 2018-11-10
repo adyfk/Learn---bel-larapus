@@ -10,6 +10,10 @@ use DataTables;
 use Yajra\DataTables\Html\Builder;
 use Session;
 use File;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\BorrowLog;
+use Illuminate\Support\Facades\Auth;
 class BooksController extends Controller
 {
     /**
@@ -29,8 +33,8 @@ class BooksController extends Controller
                     'form_url' => route('buku.destroy', $book->id),
                     'confirm_message' => 'Yakin mau menghapus ' . $book->name . '?',
                 ]);
-            })->toJson();
-        }
+            })->make(true);
+        }        
         $html = $builder->columns([
                 ['data' => 'title', 'name'=>'title', 'title'=>'Judul'],
                 ['data' => 'amount', 'name'=>'amount', 'title'=>'Jumlah'],
@@ -177,4 +181,25 @@ class BooksController extends Controller
         $book->delete();
         return redirect()->route('buku.index');
     }
+    public function borrow($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+            BorrowLog::create([
+                'user_id' => Auth::user()->id,
+                'book_id' => $id
+            ]);
+            Session::flash("flash_notification",[
+                "level"=>"success",
+                "message"=>"Berhasil meminjam $book->title"
+            ]);
+        }catch (ModelNotFoundException $e) {
+            Session::flash("flash_notification", [
+                "level"=>"danger",
+                "message"=>"Buku tidak ditemukan."
+            ]);
+        }
+        return redirect('/');
+    }
+
 }
