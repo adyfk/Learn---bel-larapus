@@ -16,12 +16,6 @@
 //});
 Route::get('/', 'GuestController@index');
 Auth::routes();
-Route::get('books/{book}/borrow', [
-    'middleware' => ['auth', 'role:member'],
-    'as' => 'guest.books.borrow',
-    'uses' => 'BooksController@borrow'
-]);
-    
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function (){
@@ -29,6 +23,17 @@ Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
         Route::resource('buku', 'BooksController');
     });
 });
+Route::get('books/{book}/borrow', [
+    'middleware' => ['auth', 'role:member'],
+    'as' => 'guest.books.borrow',
+    'uses' => 'BooksController@borrow'
+]);
+Route::put('books/{book}/return', [
+    'middleware' => ['auth', 'role:member'],
+    'as' => 'member.books.return',
+    'uses' => 'BooksController@returnBack'
+]);
+    
 
 
 
