@@ -12,6 +12,9 @@
                 {!! Form::label('amount', 'Jumlah', ['class'=>'col-sm-1 col-form-label']) !!}
                 {!! Form::text('amount', null, ['class'=>'form-control col-md-4']) !!}
         </div>
+        @if(isset($book))
+                <p class="help-block">{{ $book->borrowed }} buku sedang dipinjam</p>
+        @endif
         {!! $errors->first('amount', '<p class="help-block offset-md-1 text-danger">:message</p>') !!}
         <div class="form-group row {{ $errors->has('cover') ? ' has-error' : '' }}">
                 {!! Form::label('', 'Cover', ['class'=>'col-sm-1 col-form-label']) !!}

@@ -27,7 +27,7 @@ class GuestController extends Controller
             ['data' => 'title', 'name'=>'title', 'title'=>'Judul'],
             ['data' => 'author.name', 'name'=>'author.name', 'title'=>'Penulis'],
             ['data' => 'stock', 'name'=>'stock', 'title'=>'Stok', 'orderable'=>false, 'searchable'=>false],
-            ['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false,'\searchable'=>false]
+            ['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false,'searchable'=>false]
         ]);
         return view('guest.index')->with(compact('html')); 
     }
