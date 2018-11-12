@@ -10,7 +10,17 @@ class Book extends Model
 
     public function author()
     {
-    return $this->belongsTo('App\Author');
+        return $this->belongsTo('App\Author');
+    }
+    public function borrowLogs()
+    {
+        return $this->hasMany('App\BorrowLog');
+    }
+    public function getStockAttribute()
+    {
+        $borrowed = $this->borrowLogs()->borrowed()->count();
+        $stock = $this->amount - $borrowed;
+        return $stock;
     }
 }
 
