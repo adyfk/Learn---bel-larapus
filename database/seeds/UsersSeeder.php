@@ -33,7 +33,7 @@ class UsersSeeder extends Seeder
         // Membuat sample member
         $member = new User();
         $member->name = "Sample Member";
-        $member->email = 'tifa@gmail.com';
+        $member->email = 'tifa@gmail.com';  
         $member->password = Hash::make('rahasia');
         $member->save();
         $member->attachRole($memberRole);
