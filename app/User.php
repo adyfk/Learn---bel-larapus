@@ -31,7 +31,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    protected $casts = [
+        'is_verified' => 'boolean',
+        ];        
     public function borrow(Book $book)
     {
         // cek apakah masih ada stok buku

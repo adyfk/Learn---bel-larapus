@@ -25,6 +25,7 @@ class UsersSeeder extends Seeder
         $memberRole->save();
         // Membuat sample admin
         $admin = new User();
+        $admin->is_verified = 1;
         $admin->name = 'Adi Larapus';
         $admin->email = 'adi@gmail.com';
         $admin->password = Hash::make('rahasia');
@@ -32,6 +33,7 @@ class UsersSeeder extends Seeder
         $admin->attachRole($adminRole);
         // Membuat sample member
         $member = new User();
+        $member->is_verified = 1;
         $member->name = "Sample Member";
         $member->email = 'tifa@gmail.com';  
         $member->password = Hash::make('rahasia');
