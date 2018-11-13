@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'ady.fatkhurozi@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'admin@larapus.com'),
         'name' => env('MAIL_FROM_NAME', 'Admin Larapus'),
     ],
 
