@@ -34,10 +34,12 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
                             <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
+                            <li><a class="nav-link" href="{{ url('/settings/profile') }}">Profil</a></li>
                         @endif
                         @role('admin')
                             <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
                             <li><a class="nav-link" href="{{ route('buku.index') }}">Buku</a></li>
+                            
                         @endrole
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -59,12 +61,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/settings/password') }}"><i class="fa fa-btn fa-lock"></i> Ubah Password</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
-
+                                    </a> 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
