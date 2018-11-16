@@ -22,6 +22,10 @@ Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
         Route::resource('penulis', 'AuthorsController');
         Route::resource('buku', 'BooksController');
         Route::resource('members', 'MembersController');
+        Route::get('statistics', [
+            'as'=>'statistics.index',
+            'uses'=>'StatisticsController@index'
+        ]);
     });
 });
 Route::get('books/{book}/borrow', [

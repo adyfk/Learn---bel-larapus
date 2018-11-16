@@ -40,6 +40,7 @@
                             <li><a class="nav-link" href="{{ route('penulis.index') }}">Penulis</a></li>
                             <li><a class="nav-link" href="{{ route('buku.index') }}">Buku</a></li>
                             <li><a class="nav-link" href="{{ route('members.index') }}">Member</a></li>
+                            <li><a class="nav-link" href="{{ route('statistics.index') }}">Peminjaman</a></li>
                         @endrole
                     </ul>
                     <!-- Right Side Of Navbar -->
