@@ -21,6 +21,7 @@ Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function (){
         Route::resource('penulis', 'AuthorsController');
         Route::resource('buku', 'BooksController');
+        Route::resource('members', 'MembersController');
     });
 });
 Route::get('books/{book}/borrow', [

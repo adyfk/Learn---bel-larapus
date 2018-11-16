@@ -10,7 +10,6 @@ use DataTables;
 use Yajra\DataTables\Html\Builder;
 use Session;
 use File;
-
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\BorrowLog;
 use Auth;

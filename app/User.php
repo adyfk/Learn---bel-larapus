@@ -10,7 +10,7 @@ use App\Book;
 use App\BorrowLog;
 use App\Exceptions\BookException;
 use Illuminate\Support\Facades\Mail;
-
+use App\Exceptions\MemberException;
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
@@ -36,10 +36,20 @@ class User extends Authenticatable
     protected $casts = [
         'is_verified' => 'boolean',
         ];        
+    public function hapus(){
+        $cek = borrowLog::where('user_id',$this->id)->where('is_returned', 1)->count();
+        if($cek > 0){
+            throw new MemberException("Masih Ada $cek Buku Yang di Pinjam Oleh '$this->name'.");
+        }   
+        if($this->hasRole('member')){
+           $this->delete();
+        }
+        return $this;
+    }
     public function borrow(Book $book)
     {
         // cek apakah masih ada stok buku
-        if ($book->stock < 1) {
+        if($book->stock < 1) {
             throw new BookException("Buku $book->title sedang tidak tersedia.");
         }   
         // cek apakah buku ini sedang dipinjam oleh user
