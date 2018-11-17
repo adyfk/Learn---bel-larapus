@@ -137,6 +137,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -190,6 +192,7 @@ return [
     */
 
     'aliases' => [
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

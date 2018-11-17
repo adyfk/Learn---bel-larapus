@@ -12,7 +12,9 @@
             <div class="card">
                 <div class="card-header">Buku</div>
                 <div class="card-body">
-                    <p> <a class="btn btn-primary" href="{{ route('buku.create') }}">Tambah</a> </p>
+                    <p> <a class="btn btn-primary" href="{{ route('buku.create') }}">Tambah</a>
+                        <a class="btn btn-primary" href="{{ url('/admin/export/books') }}">Export</a>
+                    </p>
                         {!! $html->table() !!}  
                 </div>
             </div>

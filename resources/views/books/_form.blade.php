@@ -5,12 +5,12 @@
         {!! $errors->first('title', '<p class="help-block offset-md-1 text-danger">:message</p>') !!}
         <div class="form-group row {{ $errors->has('author_id') ? ' has-error' : '' }}">
                 {!! Form::label('author_id', 'Penulis', ['class'=>'col-sm-1 col-form-label']) !!}
-                {!! Form::select('author_id',App\Author::pluck('name','id')->all(), null,['class'=>'selectpicker','data-width '=>'auto', 'data-live-search'=>'true','multiple title'=>'Pilih Penulis...']) !!}
+                {!! Form::select('author_id',App\Author::pluck('name','id')->all(), null,['class'=>'selectpicker','data-width '=>'auto', 'data-live-search'=>'true',' title'=>'Pilih Penulis...']) !!}
         </div>
         {!! $errors->first('author_id', '<p class="help-block offset-md-1 text-danger">:message</p>') !!}
         <div class="form-group row {{ $errors->has('amount') ? ' has-error' : '' }}">
                 {!! Form::label('amount', 'Jumlah', ['class'=>'col-sm-1 col-form-label']) !!}
-                {!! Form::text('amount', null, ['class'=>'form-control col-md-4']) !!}
+                {!! Form::text('amount', null, ['class'=>'form-control  col-md-4']) !!}
         </div>
         @if(isset($book))
                 <p class="help-block">{{ $book->borrowed }} buku sedang dipinjam</p>

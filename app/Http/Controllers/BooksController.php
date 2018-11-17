@@ -13,8 +13,12 @@ use File;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\BorrowLog;
 use Auth;
-
+use Excel;
 use App\Exceptions\BookException;
+
+use App\Exports\BooksExport;
+use App\Http\Controllers\Controller;
+
 class BooksController extends Controller
 {
     /**
@@ -219,6 +223,18 @@ class BooksController extends Controller
         }
         return redirect('/home');
     }
-    
+    public function export() {
+        return view('books.export');
+    }
+    public function exportPost(Request $request) {
+        // validasi
+        $this->validate($request, [
+            'author_id'=>'required',
+            ], [
+            'author_id.required'=>'Anda belum memilih penulis. Pilih minimal 1 penulis.'
+        ]);
+        return (new BooksExport)->penulis($request->get('author_id'))->download('Buku.xlsx');
+
+    }
 
 }
