@@ -3,19 +3,18 @@
 namespace App\Exports;
 
 use App\Book;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style;
 use Maatwebsite\Excel\Concerns\FromCollection;
-class BooksExport implements FromQuery,WithHeadings,WithColumnFormatting,FromCollection
+class BooksExport implements WithHeadings,WithColumnFormatting,FromCollection
 {
     use Exportable;
-    public function penulis($penulis)
+    public function penulis($book)
     {
-        $this->penulis = $penulis;   
+        $this->book = $book;   
         return $this;
     }
     public function headings(): array
@@ -32,14 +31,9 @@ class BooksExport implements FromQuery,WithHeadings,WithColumnFormatting,FromCol
             'F' => NumberFormat::FORMAT_DATE_YYYYMMDD
         ];
     }
-    public function query()
-    {
-        return Book::with('author')->whereIn('author_id',$this->penulis)->get();
-       // return Book::query()->whereIn('id',$this->penulis) ;
-    }
     public function collection()
     {
-        $x = $this->query();
+        $x = $this->book;
         foreach($x as $y){
             $data[] = [$y->id,$y->title,$y->author->name,$y->amount,$y->created_at,$y->updated_at];
         }

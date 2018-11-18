@@ -15,7 +15,7 @@ use App\BorrowLog;
 use Auth;
 use Excel;
 use App\Exceptions\BookException;
-
+use PDF;
 use App\Exports\BooksExport;
 use App\Http\Controllers\Controller;
 
@@ -230,10 +230,21 @@ class BooksController extends Controller
         // validasi
         $this->validate($request, [
             'author_id'=>'required',
+            'type'=>'required|in:pdf,xls',
             ], [
             'author_id.required'=>'Anda belum memilih penulis. Pilih minimal 1 penulis.'
         ]);
-        return (new BooksExport)->penulis($request->get('author_id'))->download('Buku.xlsx');
+        $books = Book::whereIn('author_id', $request->get('author_id'))->get();
+        $handler = 'export' . ucfirst($request->get('type'));
+        return $this->$handler($books);
+    }
+    private function exportXls($books){
+        return (new BooksExport)->penulis($books)->download('Buku.xlsx');
+    }
+    private function exportPdf($books)
+    {
+        $pdf = PDF::loadview('pdf.books', compact('books'));
+        return $pdf->download('books.pdf');
     }
 
 }
