@@ -12,7 +12,6 @@
             <div class="card">
                 <div class="card-header">Daftar Buku</div>
                 <div class="card-body">
-                    <p> <a class="btn btn-primary" href="{{ route('penulis.create') }}">Tambah</a> </p>
                     {!! $html->table() !!}  
                 </div>
             </div>

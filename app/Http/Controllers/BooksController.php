@@ -17,7 +17,10 @@ use Excel;
 use App\Exceptions\BookException;
 use PDF;
 use App\Exports\BooksExport;
+use App\Exports\Template;
 use App\Http\Controllers\Controller;
+use App\Imports\BooksImport;
+
 
 class BooksController extends Controller
 {
@@ -246,5 +249,22 @@ class BooksController extends Controller
         $pdf = PDF::loadview('pdf.books', compact('books'));
         return $pdf->download('books.pdf');
     }
+    public function generateExcelTemplate()
+    {
+        return (new Template)->download('BukuTemplate.xlsx');
+    }
+    public function importExcel(Request $request){
+        // validasi untuk memastikan file yang diupload adalah excel
+        $this->validate($request, [ 'excel' => 'required|mimes:xls,xlsx' ]);
+        // ambil file yang baru diupload
+        $excel = $request->file('excel');
+        // baca sheet pertama
+        Excel::import(new BooksImport, $excel);
+        Session::flash("flash_notification", [
+            "level"=>"danger",
+            "message"=>"Success."
+        ]);
+        return redirect('/admin/buku');
 
+    }
 }

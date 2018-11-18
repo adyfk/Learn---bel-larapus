@@ -13,10 +13,32 @@
             <div class="card">
                 <div class="card-header">Buku</div>
                 <div class="card-body">
-                    {!! Form::open(['url' => route('buku.store'),'method' => 'post', 'files'=>'true', 'class'=>'ml-5']) !!}
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#form" aria-controls="form" role="tab" data-toggle="tab">
+                                <i class="fa fa-pencil-square-o"></i> Isi Form
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">
+                                <i class="fa fa-cloud-upload"></i> Upload Excel
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="form">
+                        {!! Form::open(['url' => route('buku.store'),'method' => 'post', 'files'=>'true', 'class'=>'ml-5']) !!}
                         @csrf
                         @include('books._form')
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="upload">
+                        {!! Form::open(['url' => route('import.books'),'method' => 'post', 'files'=>'true', 'class'=>'ml-5']) !!}
+                        @csrf
+                        @include('books._import')
+                        {!! Form::close() !!}
+                        </div>
+                    </div>                        
                 </div>
             </div>
         </div>

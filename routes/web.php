@@ -29,11 +29,20 @@ Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
         Route::get('export/books', [
             'as' => 'export.books',
             'uses' => 'BooksController@export'
-            ]);
+        ]);
         Route::post('export/books', [
             'as' => 'export.books.post',
             'uses' => 'BooksController@exportPost'
         ]);
+        Route::get('template/books', [
+            'as' => 'template.books',
+            'uses' => 'BooksController@generateExcelTemplate'
+        ]);
+        Route::post('import/books', [
+            'as' => 'import.books',
+            'uses' => 'BooksController@importExcel'
+        ]);
+            
     });
 });
 Route::get('books/{book}/borrow', [
