@@ -36,7 +36,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
-                            <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
+                            <!-- <li><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li> -->
+                            <li class="{{ url('/home') == request()->url() ? 'bg-light' : '' }}"><a class="nav-link" href="{{ url('/home') }}">Dashboard</a></li>
                             <li><a class="nav-link" href="{{ url('/settings/profile') }}">Profil</a></li>
                         @endif
                         @role('admin')
