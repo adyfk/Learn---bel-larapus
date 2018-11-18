@@ -234,7 +234,6 @@ class BooksController extends Controller
             'author_id.required'=>'Anda belum memilih penulis. Pilih minimal 1 penulis.'
         ]);
         return (new BooksExport)->penulis($request->get('author_id'))->download('Buku.xlsx');
-
     }
 
 }
